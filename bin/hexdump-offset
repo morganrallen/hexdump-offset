@@ -1,0 +1,19 @@
+#!/usr/bin/env node
+
+var offset = require("../");
+var argv = require("minimist")(process.argv);
+
+var addr;
+var tr;
+var inStream;
+
+if(argv._.length === 3) {
+  addr = argv._.pop();
+  tr = offset(addr);
+  inStream = process.stdin;
+} else {
+  var file = argv._.pop();
+  addr = argv._.pop();
+}
+
+inStream.pipe(tr).pipe(process.stdout);
